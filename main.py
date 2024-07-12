@@ -10,7 +10,12 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
 # Set the base path for the scenario scripts to match your system's directory structure
-base_path = "/absolute/path/to/Parallel_Processing"
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+base_path = config.get('Paths', 'Parallel_Processing')
+
 
 
 # Handle CORS
