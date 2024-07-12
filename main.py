@@ -12,9 +12,8 @@ templates = Jinja2Templates(directory="templates")
 # Set the base path for the scenario scripts to match your system's directory structure
 import configparser
 
-config = configparser.ConfigParser()
-config.read('config.ini')
-base_path = config.get('Paths', 'Parallel_Processing')
+
+base_path = "/workspaces/Parallel_Processing"
 
 
 
