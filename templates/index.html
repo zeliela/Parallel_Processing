@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Run Scenarios</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #f1f1f1;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .welcome {
+            background-color: #333333;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #8a2be2; /* بنفش */
+            text-align: center;
+        }
+        form {
+            background-color: #333333;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 100%;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #cccccc;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #444444;
+            color: #f1f1f1;
+        }
+        input[type="submit"] {
+            background-color: #8a2be2; /* بنفش */
+            color: #1a1a1a;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #6a1bbd; /* تیره‌تر بنفش */
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome">
+        <p>Parallel Processing Project</p>
+        <p>by ElaheZamani</p>
+    </div>
+
+    <h1>Select a Scenario to Run</h1>
+    <form action="/run_scenario" method="post">
+        <label for="folder">Folder:</label>
+        <select name="folder" id="folder">
+            {% for folder in scenarios.keys() %}
+                <option value="{{ folder }}">{{ folder }}</option>
+            {% endfor %}
+        </select><br>
+        
+        <label for="scenario">Scenario:</label>
+        <select name="scenario" id="scenario">
+            {% for folder, scen_list in scenarios.items() %}
+                <optgroup label="{{ folder }}">
+                    {% for scenario in scen_list %}
+                        <option value="{{ scenario }}">{{ scenario }}</option>
+                    {% endfor %}
+                </optgroup>
+            {% endfor %}
+        </select><br>
+        
+        <input type="submit" value="Run">
+    </form>
+</body>
+</html>
