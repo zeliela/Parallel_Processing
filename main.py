@@ -10,7 +10,8 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
 # Set the base path for the scenario scripts to match your system's directory structure
-base_path = "./Parallel_Processing"
+base_path = "/absolute/path/to/Parallel_Processing"
+
 
 # Handle CORS
 app.add_middleware(
