@@ -6,7 +6,7 @@
 در این پروژه، من یک API با استفاده از FastAPI پیاده‌سازی کرده‌ام که اسکریپت‌های پایتون مختلف را اجرا می‌کند و خروجی آن‌ها را در قالب JSON ارائه می‌دهد. این API می‌تواند ورودی‌ها را از طریق مسیر (path)، پرس‌وجو (query) و بدنه (body) دریافت کند.
 
 ## یک نمونه از FastAPI و Jinja2Templates ایجاد کرده‌ام:
-![alt text](image.png)
+![image](https://github.com/user-attachments/assets/7587dabb-9703-4ae6-ab9d-e4b0e1a7b66d)
 
 
 
