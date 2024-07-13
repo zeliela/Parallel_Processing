@@ -9,24 +9,8 @@ import os
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
-# Dictionary for folders and scenarios
-folders = {
-    "Pro_1": ["scenario1.py", "scenario2.py", "scenario3.py"],
-    "Pro_2": ["scenario1.py", "scenario2.py", "scenario3.py"],
-    "Pro_3": ["scenario1.py", "scenario2.py", "scenario3.py"],
-    "Pro_4": ["scenario1.py", "scenario2.py", "scenario3.py"],
-    "Pro_5": ["scenario1.py", "scenario2.py", "scenario3.py"],
-    "Pro_6": ["scenario1.py", "scenario2.py", "scenario3.py"],
-    "Pro_7": ["scenario1.py", "scenario2.py", "scenario3.py"],
-    "Pro_8": ["scenario1.py", "scenario2.py", "scenario3.py"],
-    "Tr_1": ["scenario1.py", "scenario2.py", "scenario3.py"],
-    "Tr_2": ["scenario1.py", "scenario2.py", "scenario3.py"],
-    "Tr_3": ["scenario1.py", "scenario2.py", "scenario3.py"],
-    "Tr_4": ["scenario1.py", "scenario2.py", "scenario3.py"],
-    "Tr_5": ["scenario1.py", "scenario2.py", "scenario3.py"],
-    "Tr_6": ["scenario1.py", "scenario2.py", "scenario3.py"],
-    "Tr_7": ["scenario1.py", "scenario2.py", "scenario3.py"]
-}
+# Set the base path for the scenario scripts to match your system's directory structure
+base_path = "/"
 
 # Handle CORS
 app.add_middleware(
@@ -47,27 +31,26 @@ async def validation_exception_handler(request: Request, exc: Exception):
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
     try:
-        return templates.TemplateResponse("index.html", {"request": request, "scenarios": folders})
+        folders = [f for f in os.listdir(base_path) if os.path.isdir(os.path.join(base_path, f))]
+        scenarios = {folder: [f for f in os.listdir(os.path.join(base_path, folder)) if f.startswith('scenario')] for folder in folders}
+        return templates.TemplateResponse("index.html", {"request": request, "scenarios": scenarios})
     except Exception as e:
         return JSONResponse(status_code=500, content={"detail": str(e)})
 
 @app.post("/run_scenario", response_class=HTMLResponse)
 async def run_scenario(request: Request, folder: str = Form(...), scenario: str = Form(...)):
     try:
-        script_path = os.path.join("https://raw.githubusercontent.com/zeliela/Parallel_Processing", folder, scenario)
-        if os.path.exists(script_path):
-            result = subprocess.run(["python", script_path], capture_output=True, text=True)
-            output = result.stdout + result.stderr
-            return templates.TemplateResponse("result.html", {"request": request, "folder": folder, "scenario": scenario, "output": output})
-        else:
-            return JSONResponse(status_code=404, content={"detail": "Script not found"})
+        script_path = os.path.join(base_path, folder, scenario)
+        result = subprocess.run(["python", script_path], capture_output=True, text=True)
+        output = result.stdout + result.stderr
+        return templates.TemplateResponse("result.html", {"request": request, "folder": folder, "scenario": scenario, "output": output})
     except Exception as e:
         return JSONResponse(status_code=500, content={"detail": str(e)})
 
 @app.get("/show_code", response_class=HTMLResponse)
 async def show_code(request: Request, folder: str, scenario: str):
     try:
-        script_path = os.path.join("https://raw.githubusercontent.com/zeliela/Parallel_Processing", folder, scenario)
+        script_path = os.path.join(base_path, folder, scenario)
         with open(script_path, 'r') as f:
             code = f.read()
         return templates.TemplateResponse("code.html", {"request": request, "folder": folder, "scenario": scenario, "code": code})
@@ -77,4 +60,3 @@ async def show_code(request: Request, folder: str, scenario: str):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
