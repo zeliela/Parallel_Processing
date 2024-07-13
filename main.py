@@ -54,7 +54,7 @@ async def read_root(request: Request):
 @app.post("/run_scenario", response_class=HTMLResponse)
 async def run_scenario(request: Request, folder: str = Form(...), scenario: str = Form(...)):
     try:
-        script_path = os.path.join("E:/Parallel_Processing", folder, scenario)
+        script_path = os.path.join("https://raw.githubusercontent.com/zeliela/Parallel_Processing", folder, scenario)
         if os.path.exists(script_path):
             result = subprocess.run(["python", script_path], capture_output=True, text=True)
             output = result.stdout + result.stderr
@@ -67,7 +67,7 @@ async def run_scenario(request: Request, folder: str = Form(...), scenario: str 
 @app.get("/show_code", response_class=HTMLResponse)
 async def show_code(request: Request, folder: str, scenario: str):
     try:
-        script_path = os.path.join("E:/Parallel_Processing", folder, scenario)
+        script_path = os.path.join("https://raw.githubusercontent.com/zeliela/Parallel_Processing", folder, scenario)
         with open(script_path, 'r') as f:
             code = f.read()
         return templates.TemplateResponse("code.html", {"request": request, "folder": folder, "scenario": scenario, "code": code})
