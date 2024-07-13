@@ -86,123 +86,117 @@
 . فرآیند برای یک ثانیه متوقف می‌شود و اگر همچنان در حال اجرا باشد، با استفاده از متد ترمینیتت  متوقف می‌شود. سپس فرآیند با استفاده از متد جوین  به فرآیند اصلی ملحق می‌شود و وضعیت فرآیند و کد خروجی آن چاپ می‌شود.
 
 
-
-------------------برای راحتی استفاده از نام توابع که به صورت انگلیسی است بقیه گزارش را به زبان انگلیسی ارائه می دهم-------------------------
-
-
 ## Pro_5
-## Scenario 1: Default Output
-In this scenario, we use a class MyProcess that inherits from multiprocessing.Process. This class overrides the run method to print a message indicating which process is executing. In each iteration of the loop, an instance of this class is created, started, and then joined to the main process.
-
-## Scenario 2: Printing Additional Information
-In this scenario, we utilize the MyProcessWithInfo class, which also inherits from multiprocessing.Process. Within this class, the run method is overridden to print a message containing the process name and its PID (Process ID). Similar to Scenario 1, multiple instances of this class are created, started, and joined in each iteration of the loop.
-
-## Scenario 3: Custom Process Names and Additional Message
-This scenario involves the CustomNameProcess class, inheriting from multiprocessing.Process. It accepts a name parameter in its __init__ method to set a custom process name. In the run method, a message is printed displaying the process name along with a custom message. Multiple instances of this class with different names are created, started, and joined in each iteration of the loop.
-
-## Pro_6
-## Scenario 1: Default Output
-In this scenario, we have a producer-consumer setup using multiprocessing in Python. The Producer class generates random integer items and puts them into a shared queue. Each item is printed with the producer's name and the current queue size. The Consumer class continuously checks the queue for items. If the queue is not empty, it retrieves an item, prints it with the consumer's name, and then sleeps for a short interval.
-
-## Scenario 2: Adjusted Consumer Wait Time
-This scenario extends Scenario 1 by modifying the Consumer behavior. The Consumer now waits longer between checking the queue for items, simulating a scenario where consumers process items less frequently than producers generate them. This adjustment demonstrates how different consumer behaviors can impact the processing of items in a shared queue.
-
-## Scenario 3: Multiple Producers and One Consumer
-In this scenario, we introduce multiple producers (Producer instances) generating items into the shared queue. Similarly to Scenario 1, each item's addition is logged with the producer's name and the current queue size. The Consumer class consumes items from the queue, printing each item's consumption with its own name. This setup illustrates how multiple producers can concurrently add items to a single queue, managed by a single consumer.
-
-## Pro_7
-## Scenario 1: Two Processes with Barrier
-In Scenario 1, we create two processes using the Barrier and Lock from the multiprocessing module. The test_with_barrier function demonstrates synchronized execution between two processes using Barrier. Each process waits for the other to reach the barrier before printing a timestamped message using a shared Lock to ensure thread-safe printing. Two additional processes run concurrently without the use of barriers, illustrating unsynchronized execution.
-
-## Scenario 2: Three Processes with Barrier
-Scenario 2 extends Scenario 1 by introducing a third process. This setup demonstrates how Barrier with a higher threshold (3 processes) delays execution until all three processes have reached the barrier. Similar to Scenario 1, a Lock ensures thread-safe printing in synchronized processes, while one process operates without synchronization.
-
-## Scenario 3: Four Processes with Barrier
-Scenario 3 involves four processes, all using Barrier for synchronization. Each process in this scenario waits for all others to reach the barrier before proceeding, ensuring coordinated execution. A Lock ensures safe access to shared resources during synchronized operations. This scenario showcases the scalability of using barriers in multiprocessing for coordinated task execution
-
-## Pro_8
-## Scenario 1: Squaring Numbers
-In Scenario 1, a pool of 4 processes is used to square numbers ranging from 0 to 100 concurrently. Each number is squared using the function_square function, and the results are collected using pool.map. The pool is closed and joined to ensure proper cleanup.
-
-
-## Scenario 2: Cubing Numbers
-Scenario 2 involves cubing numbers from 0 to 33 using a pool of 4 processes. The function_cube function calculates the cube of each number, and the results are gathered using pool.map. The pool is then closed and joined to synchronize and collect results.
-
-## Scenario 3: Doubling Numbers
-Scenario 3 demonstrates doubling numbers from 0 to 50 in parallel. A pool of 4 processes applies the function_double function to each input, and pool.map gathers the results. Similar to other scenarios, the pool is properly closed and joined after processing.
-
-## Tr_1
-## Scenario 1: 
-This scenario demonstrates sequential execution using threading in Python. Ten threads are created, each invoking my_func_scenario_1, which simply prints a message indicating its thread number. Each thread is started and immediately joined, ensuring that each completes before the next one begins. This sequential approach guarantees that each thread's function call completes in order, one after the other.
+## Scenario 1:
+در این سناریو، ما از کلاسی به نام MyProcess که از multiprocessing.Process ارث‌بری می‌کند، استفاده می‌کنیم. این کلاس متد run را بازنویسی می‌کند تا پیامی را چاپ کند که نشان می‌دهد کدام فرآیند در حال اجرا است. در هر تکرار حلقه، یک نمونه از این کلاس ایجاد، شروع و سپس به فرآیند اصلی پیوسته می‌شود.
 
 ## Scenario 2:
- In contrast to Scenario 1, Scenario 2 showcases concurrent execution with a slight delay before starting each thread. Similar to Scenario 1, ten threads are created using my_func_scenario_2, which prints a unique message including its thread number. However, a small delay of 0.1 seconds is introduced between starting each thread using time.sleep(0.1). This delay allows for some concurrency in starting threads, meaning they may overlap in execution time but still maintain their individual starting points.
+در این سناریو، ما از کلاس MyProcessWithInfo که همچنین از multiprocessing.Process ارث‌بری می‌کند، استفاده می‌کنیم. در این کلاس، متد run بازنویسی می‌شود تا پیامی حاوی نام فرآیند و شناسه فرآیند (PID) چاپ کند. مشابه سناریوی 1، چندین نمونه از این کلاس ایجاد، شروع و در هر تکرار حلقه به فرآیند اصلی پیوسته می‌شود.
 
-## Scenario 3: 
-This scenario demonstrates immediate concurrent execution with randomized delays in output. Ten threads are initiated using my_func_scenario_3, where each thread prints its number and a randomly generated delay between 0.1 to 1.0 seconds. These delays simulate real-world scenarios where thread execution times can vary. Despite the delays, all threads are started concurrently, meaning they run simultaneously and independently of each other after being initiated.
+## Scenario 3:
+این سناریو شامل کلاس CustomNameProcess است که از multiprocessing.Process ارث‌بری می‌کند. این کلاس پارامتری به نام name را در متد __init__ خود می‌پذیرد تا نام سفارشی برای فرآیند تنظیم کند. در متد run، پیامی چاپ می‌شود که نام فرآیند و یک پیام سفارشی را نمایش می‌دهد. چندین نمونه از این کلاس با نام‌های مختلف ایجاد، شروع و در هر تکرار حلقه به فرآیند اصلی پیوسته می‌شود.
+
+## Pro_6
+## Scenario 1:
+در این سناریو، ما یک تنظیم تولیدکننده-مصرف‌کننده با استفاده از multiprocessing در پایتون داریم. کلاس Producer آیتم‌های صحیح تصادفی تولید می‌کند و آن‌ها را در یک صف مشترک قرار می‌دهد. هر آیتم با نام تولیدکننده و اندازه فعلی صف چاپ می‌شود. کلاس Consumer به طور مداوم صف را برای آیتم‌ها بررسی می‌کند. اگر صف خالی نباشد، آیتمی را بازیابی کرده، آن را با نام مصرف‌کننده چاپ می‌کند و سپس برای مدت کوتاهی می‌خوابد.
+
+## Scenario 2:
+این سناریو سناریوی 1 را با تغییر رفتار مصرف‌کننده گسترش می‌دهد. اکنون مصرف‌کننده زمان بیشتری بین بررسی صف برای آیتم‌ها صبر می‌کند، شبیه‌سازی سناریویی که در آن مصرف‌کنندگان آیتم‌ها را کمتر از تولیدکنندگان تولید می‌کنند. این تنظیم نشان می‌دهد که چگونه رفتارهای مختلف مصرف‌کننده می‌تواند بر پردازش آیتم‌ها در یک صف مشترک تأثیر بگذارد.
+
+## Scenario 3:
+در این سناریو، چندین تولیدکننده (نمونه‌های Producer) را معرفی می‌کنیم که آیتم‌ها را به صف مشترک اضافه می‌کنند. مشابه سناریوی 1، افزودن هر آیتم با نام تولیدکننده و اندازه فعلی صف ثبت می‌شود. کلاس Consumer آیتم‌ها را از صف مصرف می‌کند و مصرف هر آیتم را با نام خود چاپ می‌کند. این تنظیم نشان می‌دهد که چگونه چندین تولیدکننده می‌توانند به صورت همزمان آیتم‌ها را به یک صف اضافه کنند که توسط یک مصرف‌کننده مدیریت می‌شود.
+
+## Pro_7
+## Scenario 1:
+در سناریو 1، ما دو فرآیند با استفاده از Barrier و Lock از ماژول multiprocessing ایجاد می‌کنیم. تابع test_with_barrier اجرای همزمان بین دو فرآیند را با استفاده از Barrier نشان می‌دهد. هر فرآیند منتظر می‌ماند تا فرآیند دیگر به مانع برسد قبل از چاپ یک پیام زمان‌دار با استفاده از یک Lock مشترک برای اطمینان از چاپ ایمن. دو فرآیند اضافی به طور همزمان بدون استفاده از موانع اجرا می‌شوند، نشان می‌دهد که چگونه بدون همزمان‌سازی عمل می‌کنند.
+
+## Scenario 2:
+سناریو 2 سناریو 1 را با معرفی یک فرآیند سوم گسترش می‌دهد. این تنظیم نشان می‌دهد که چگونه Barrier با آستانه بالاتر (3 فرآیند) اجرای فرآیندها را تا زمانی که هر سه فرآیند به مانع نرسیده‌اند، به تأخیر می‌اندازد. مشابه سناریو 1، یک Lock اطمینان حاصل می‌کند که چاپ در فرآیندهای همزمان به صورت ایمن انجام می‌شود، در حالی که یک فرآیند بدون همزمان‌سازی عمل می‌کند.
+
+## Scenario 3:
+سناریو 3 شامل چهار فرآیند است که همگی برای همزمان‌سازی از Barrier استفاده می‌کنند. هر فرآیند در این سناریو منتظر می‌ماند تا همه فرآیندهای دیگر به مانع برسند، و سپس ادامه می‌دهد، اطمینان از اجرای هماهنگ فرآیندها. یک Lock دسترسی ایمن به منابع مشترک را در عملیات‌های همزمان تضمین می‌کند. این سناریو نشان می‌دهد که چگونه استفاده از موانع در پردازش موازی برای اجرای هماهنگ وظایف مقیاس‌پذیر است.
+
+## Pro_8
+## Scenario 1:
+در سناریو 1، از یک استخر شامل 4 فرآیند برای محاسبه توان دوم اعداد از 0 تا 100 به طور همزمان استفاده می‌شود. هر عدد با استفاده از تابع function_square به توان دوم می‌رسد و نتایج با استفاده از pool.map جمع‌آوری می‌شود. استخر بسته شده و به فرآیند اصلی ملحق می‌شود تا اطمینان حاصل شود که به درستی پاک‌سازی انجام می‌شود.
+
+## Scenario 2:
+سناریو 2 شامل محاسبه توان سوم اعداد از 0 تا 33 با استفاده از یک استخر شامل 4 فرآیند است. تابع function_cube توان سوم هر عدد را محاسبه می‌کند و نتایج با استفاده از pool.map جمع‌آوری می‌شود. استخر سپس بسته شده و به فرآیند اصلی ملحق می‌شود تا نتایج به درستی همگام‌سازی و جمع‌آوری شوند.
+
+## Scenario 2:
+سناریو 3 دو برابر کردن اعداد از 0 تا 50 را به صورت موازی نشان می‌دهد. یک استخر شامل 4 فرآیند تابع function_double را بر روی هر ورودی اعمال می‌کند و pool.map نتایج را جمع‌آوری می‌کند. مشابه سناریوهای دیگر، استخر پس از پردازش به درستی بسته شده و به فرآیند اصلی ملحق می‌شود.
+
+
+## Tr_1
+## Scenario 1:
+این سناریو اجرای ترتیبی با استفاده از threading در پایتون را نشان می‌دهد. ده رشته ایجاد می‌شوند که هر کدام my_func_scenario_1 را فراخوانی می‌کنند، که به سادگی پیامی چاپ می‌کند که نشان می‌دهد کدام رشته در حال اجرا است. هر رشته شروع می‌شود و بلافاصله ملحق می‌شود، اطمینان حاصل می‌شود که هر کدام قبل از شروع بعدی کامل می‌شود. این روش ترتیبی تضمین می‌کند که هر فراخوانی تابع رشته به ترتیب و یکی پس از دیگری تکمیل می‌شود.
+
+## Scenario 2:
+در تضاد با سناریو 1، سناریو 2 اجرای همزمان با تاخیر کمی قبل از شروع هر رشته را نشان می‌دهد. مشابه سناریو 1، ده رشته با استفاده از my_func_scenario_2 ایجاد می‌شوند، که پیامی منحصر به فرد حاوی شماره رشته چاپ می‌کند. با این حال، تاخیر کوچکی به مدت 0.1 ثانیه بین شروع هر رشته با استفاده از time.sleep(0.1) معرفی می‌شود. این تاخیر اجازه می‌دهد تا مقداری همزمانی در شروع رشته‌ها وجود داشته باشد، به این معنا که ممکن است آنها در زمان اجرا همپوشانی داشته باشند اما همچنان نقاط شروع جداگانه خود را حفظ می‌کنند.
+
+## Scenario 3:
+این سناریو اجرای همزمان فوری با تاخیرهای تصادفی در خروجی را نشان می‌دهد. ده رشته با استفاده از my_func_scenario_3 آغاز می‌شوند، جایی که هر رشته شماره خود و یک تاخیر تصادفی بین 0.1 تا 1.0 ثانیه را چاپ می‌کند. این تاخیرها سناریوهای دنیای واقعی را شبیه‌سازی می‌کنند که در آن زمان‌های اجرای رشته‌ها می‌توانند متفاوت باشند. علیرغم تاخیرها، همه رشته‌ها به صورت همزمان شروع می‌شوند، به این معنا که آنها به طور همزمان و مستقل از یکدیگر پس از شروع اجرا می‌شوند.
 
 ## Tr_2
-## Scenario 1: Sequential Execution with Modified Message
-This scenario demonstrates sequential execution of three functions (function_A, function_B, function_C) using threads. Each function prints a starting message, waits for 2 seconds using time.sleep(2), and then prints an exiting message. Each thread is started sequentially using .start() and .join(), ensuring that one function completes execution before the next one starts.
+## Scenario 1:
+این سناریو اجرای ترتیبی سه تابع (function_A، function_B، function_C) با استفاده از رشته‌ها را نشان می‌دهد. هر تابع یک پیام شروع را چاپ می‌کند، به مدت 2 ثانیه با استفاده از time.sleep(2) منتظر می‌ماند و سپس یک پیام خروج را چاپ می‌کند. هر رشته به طور ترتیبی با استفاده از .start() و .join() شروع می‌شود، اطمینان حاصل می‌شود که یک تابع قبل از شروع تابع بعدی کامل می‌شود.
 
-## Scenario 2: Concurrent Execution with Different Sleep Times
-In this scenario, three functions (function_A_diff_sleep, function_B_diff_sleep, function_C_diff_sleep) are executed concurrently using threads. Each function has a different sleep duration: 1 second, 2 seconds, and 3 seconds respectively. Threads are started concurrently with .start() and then joined sequentially with .join(). This allows for overlapping execution where threads with shorter sleep times may complete before those with longer sleep times.
+## Scenario 2:
+در این سناریو، سه تابع (function_A_diff_sleep، function_B_diff_sleep، function_C_diff_sleep) به صورت همزمان با استفاده از رشته‌ها اجرا می‌شوند. هر تابع مدت زمان خواب متفاوتی دارد: 1 ثانیه، 2 ثانیه و 3 ثانیه به ترتیب. رشته‌ها به صورت همزمان با .start() شروع می‌شوند و سپس به طور ترتیبی با .join() ملحق می‌شوند. این اجازه می‌دهد تا اجرای همپوشانی که در آن رشته‌هایی با زمان‌های خواب کوتاه‌تر ممکن است قبل از رشته‌هایی با زمان‌های خواب طولانی‌تر کامل شوند.
 
-## Scenario 3: Immediate Concurrent Execution with Randomized Output Message
-This scenario demonstrates immediate concurrent execution of three functions (function_A_random, function_B_random, function_C_random) using threads. Each function has a randomized sleep duration between 1 to 2 seconds (random.uniform(1, 2)). Threads are started concurrently and then joined sequentially. This scenario showcases concurrent execution where each thread's output message is randomized due to the random sleep duration.
+## Scenario 3:
+این سناریو اجرای همزمان فوری سه تابع (function_A_random، function_B_random، function_C_random) با استفاده از رشته‌ها را نشان می‌دهد. هر تابع مدت زمان خواب تصادفی بین 1 تا 2 ثانیه (random.uniform(1, 2)) دارد. رشته‌ها به صورت همزمان شروع می‌شوند و سپس به طور ترتیبی ملحق می‌شوند. این سناریو اجرای همزمان را نشان می‌دهد که در آن پیام خروجی هر رشته به دلیل مدت زمان خواب تصادفی تصادفی است.
 
 ## Tr_3
-## Scenario1: Ordered Start with Randomized Sleep
-This scenario involves creating 9 threads (MyThread) where each thread sleeps for a random duration between 1 to 3 seconds and then completes. Threads are started sequentially and joined in the order they were created, ensuring that each thread's execution is completed before moving to the next thread. The process ID (os.getpid()) is printed to show which process each thread belongs to.
+## Scenario 1:
+این سناریو شامل ایجاد 9 رشته (MyThread) است که هر رشته برای مدت زمان تصادفی بین 1 تا 3 ثانیه می‌خوابد و سپس کامل می‌شود. رشته‌ها به طور ترتیبی شروع و به ترتیب ایجاد شده ملحق می‌شوند، اطمینان حاصل می‌شود که اجرای هر رشته قبل از حرکت به رشته بعدی کامل می‌شود. شناسه فرآیند (os.getpid()) چاپ می‌شود تا نشان دهد که هر رشته به کدام فرآیند تعلق دارد.
 
-## Scenario 2: Concurrent Start with Fixed Sleep
-In this scenario, 9 threads (MyThreadFixedSleep) are created, each of which sleeps for a fixed duration of 2 seconds. Threads are started concurrently using .start() and then joined sequentially using .join(). This demonstrates concurrent thread execution where each thread performs the same task (sleeping for 2 seconds) independently.
+## Scenario 2:
+در این سناریو، 9 رشته (MyThreadFixedSleep) ایجاد می‌شوند که هر کدام برای مدت زمان ثابت 2 ثانیه می‌خوابند. رشته‌ها به صورت همزمان با استفاده از .start() شروع می‌شوند و سپس به طور ترتیبی با استفاده از .join() ملحق می‌شوند. این اجرای همزمان رشته‌ها را نشان می‌دهد که در آن هر رشته وظیفه مشابهی (خوابیدن برای 2 ثانیه) را به طور مستقل انجام می‌دهد.
 
-## Scenario 3: Sequential Start with Increasing Sleep Time
-Here, 9 threads (MyThreadIncreasingSleep) are created, each with an increasing sleep time ranging from 1 second to 9 seconds (corresponding to their thread ID). Threads are started sequentially and joined immediately after starting using t.join(). This scenario showcases sequential thread execution with increasing sleep times, allowing each subsequent thread to start only after the previous one has completed.
+## Scenario 3:
+در اینجا، 9 رشته (MyThreadIncreasingSleep) ایجاد می‌شوند که هر کدام زمان خواب افزایشی از 1 ثانیه تا 9 ثانیه (مطابق با شناسه رشته خود) دارند. رشته‌ها به طور ترتیبی شروع و بلافاصله پس از شروع با استفاده از t.join() ملحق می‌شوند. این سناریو اجرای ترتیبی رشته‌ها را با زمان خواب افزایشی نشان می‌دهد، به طوری که هر رشته بعدی تنها پس از کامل شدن رشته قبلی شروع می‌شود.
 
 ## Tr_4
-## Scenario1:
-This scenario (sequential) ensures threads acquire and release a lock (threadLock) before printing and sleeping. This guarantees sequential output due to the lock, which prevents threads from interleaving their print statements.
+## Scenario 1:
+این سناریو (ترتیبی) تضمین می‌کند که رشته‌ها قبل از چاپ و خوابیدن یک قفل (threadLock) را دریافت و آزاد می‌کنند. این تضمین خروجی ترتیبی به دلیل قفل را می‌دهد که مانع از تداخل عبارات چاپی رشته‌ها می‌شود.
 
-## Scenario2:
-In this scenario (concurrent), threads execute without acquiring a lock, allowing them to print and sleep concurrently. This results in potential interleaving of output statements from different threads.
+## Scenario 2:
+در این سناریو (همزمان)، رشته‌ها بدون دریافت یک قفل اجرا می‌شوند و به آنها اجازه می‌دهد تا به طور همزمان چاپ و خواب کنند. این منجر به تداخل احتمالی عبارات خروجی از رشته‌های مختلف می‌شود.
 
-## Scenario3:
-This scenario (new_locking_scenario) introduces a new locking mechanism where threads acquire a lock before printing and sleeping. This ensures that each thread completes its execution segment atomically, avoiding interleaving output.
+## Scenario 3:
+این سناریو (new_locking_scenario) یک مکانیزم قفل جدید معرفی می‌کند که در آن رشته‌ها قبل از چاپ و خوابیدن یک قفل دریافت می‌کنند. این تضمین می‌کند که هر رشته بخش اجرای خود را به صورت اتمی کامل می‌کند و از تداخل خروجی جلوگیری می‌کند.
 
 ## Tr_5
+## Scenario 1:
+عملیات‌های ایمن رشته‌ای (روش‌های add و remove) با استفاده از RLock در کلاس Box را نشان می‌دهد. رشته‌های add_items و remove_items با نرخ‌های مختلف اضافه و حذف آیتم‌ها اجرا می‌شوند و از طریق قفل‌گذاری همگام‌سازی را تضمین می‌کنند.
 
-## Scenario1:
-Demonstrates thread-safe operations (add and remove methods) using a RLock in the Box class. Threads add_items and remove_items execute with different rates of item addition and removal, ensuring synchronization through locking.
+## Scenario 2=
+مشابه سناریو 1 اما با زمان‌های خواب متفاوت (0.05 ثانیه برای اضافه کردن و 0.2 ثانیه برای حذف). این واریاسیون نشان می‌دهد که چگونه رشته‌ها می‌توانند عملیات‌ها را با زمان‌های مختلف انجام دهند در حالی که همچنان همگام‌سازی را حفظ می‌کنند.
 
-## Scenario2:
-Similar to Scenario 1 but with different sleep times (0.05 seconds for adding and 0.2 seconds for removing). This variation showcases how threads can perform operations with different timings while still maintaining synchronization.
-
-## Scenario3:
-Uses the Box class directly with adder and remover functions, demonstrating thread-safe operations on a shared Box instance using threading.
+## Scenario 3:
+استفاده از کلاس Box به طور مستقیم با توابع adder و remover، عملیات‌های ایمن رشته‌ای روی یک نمونه Box مشترک با استفاده از threading را نشان می‌دهد.
 
 ## Tr_6
+## Scenario 1:
+تولیدکنندگان متعدد تولید آیتم‌های تصادفی و یک مصرف‌کننده که منتظر مصرف هر آیتم تولید شده است با استفاده از semaphore و یک قفل برای همگام‌سازی را نشان می‌دهد.
 
-## Scenario1:
-Demonstrates multiple producers generating random items and a single consumer waiting to consume each produced item using a semaphore and a lock for synchronization.
+## Scenario 2:
+چندین مصرف‌کننده که منتظر تولید یک آیتم از یک تولیدکننده هستند، پس از آن تولیدکننده semaphore را برای همه مصرف‌کنندگان آزاد می‌کند تا همان آیتم را مصرف کنند را نشان می‌دهد.
 
-## Scenario2:
-Shows multiple consumers waiting for a single producer to produce an item, after which the producer releases the semaphore for all consumers to consume the same item.
+## Scenario 3:
+تولیدکنندگان متعدد به طور همزمان آیتم‌های تصادفی تولید می‌کنند در حالی که چندین مصرف‌کننده منتظر مصرف این آیتم‌ها هستند با استفاده از همگام‌سازی مبتنی بر semaphore و یک قفل برای کنترل دسترسی به آیتم را نشان می‌دهد.
 
-## Scenario3:
- Illustrates multiple producers producing random items concurrently while multiple consumers wait to consume these items using semaphore-based synchronization and a lock for item access control.
+## Tr_7
+## Scenario 1:
+سه شرکت‌کننده (Dewey، Huey، Louie) را نشان می‌دهد که در زمان‌های مختلف شروع به مسابقه می‌کنند و در یک مانع منتظر می‌مانند تا همه شرکت‌کنندگان به آن برسند.
 
- ## Tr_7
+## Scenario 2:
+مشابه سناریو 1 اما با شرکت‌کنندگان مختلفی که به دلیل زمان‌های خواب متفاوت به ترتیب مختلف به مانع می‌رسند، انعطاف‌پذیری threading.Barrier را نشان می‌دهد.
 
- ## Scenario1:
- Demonstrates three participants (Dewey, Huey, Louie) starting the race at different times and waiting at a barrier until all participants have reached it.
+## Scenario 3:
+مشابه سناریو 1 اما با شرکت‌کنندگان مختلفی که به دلیل زمان‌های خواب متفاوت به ترتیب مختلف به مانع می‌رسند، انعطاف‌پذیری threading.Barrier را نشان می‌دهد.
 
- ## Scenario2:
- Similar to Scenario 1 but with different participants reaching the barrier in a different order due to varied sleep times, showcasing the flexibility of threading.Barrier.
-
- ## Scenario3:
- Similar to Scenario 1 but with different participants reaching the barrier in a different order due to varied sleep times, showcasing the flexibility of threading.Barrier.
 
 
 
