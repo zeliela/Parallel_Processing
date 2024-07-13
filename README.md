@@ -50,11 +50,11 @@
 ##  Push کردن فایل‌های Dockerize شده به GitHub
 از دستورات زیر را برای push کردن فایل‌ها به GitHub استفاده میکنیم:
 
-git init
-git remote add origin https://https://https://github.com/zeliela/Parallel_Processing
-git add .
-git commit -m "Initial commit"
-git push -u origin master
+## git init
+## git remote add origin https://https://https://github.com/zeliela/Parallel_Processing
+## git add .
+## git commit -m "Initial commit"
+## git push -u origin master
 
 
 ## 4.
