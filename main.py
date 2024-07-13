@@ -10,7 +10,7 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
 # Set the base path for the scenario scripts to match your system's directory structure
-base_path = "/"
+base_path = os.getcwd()
 
 # Handle CORS
 app.add_middleware(
@@ -60,3 +60,7 @@ async def show_code(request: Request, folder: str, scenario: str):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
+
+
+
