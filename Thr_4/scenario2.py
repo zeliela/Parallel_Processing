@@ -7,38 +7,47 @@ from random import randint
 threadLock = threading.Lock()
 
 class MyThreadClass(Thread):
-    def __init__(self, name, duration, scenario):
+    def __init__(self, name, scenario):
         Thread.__init__(self)
         self.name = name
-        self.duration = duration
         self.scenario = scenario
 
     def run(self):
-        if self.scenario == 'concurrent':
-            # Concurrent Execution without Locking
-            print(f"---> {self.name} running, belonging to process ID {os.getpid()}")
-            time.sleep(self.duration)
-            print(f"---> {self.name} over")
+        if self.scenario == 'delay':
+            delay = randint(1, 5)
+            threadLock.acquire()
+            try:
+                print(f"---> {self.name} starting, belonging to process ID {os.getpid()}")
+            finally:
+                threadLock.release()
+            time.sleep(delay)
+            threadLock.acquire()
+            try:
+                print(f"---> {self.name} finished after {delay} seconds")
+            finally:
+                threadLock.release()
 
-def run_concurrent():
-    print("Running Concurrent Scenario")
+def run_delay_scenario():
+    print("Running Delay Scenario")
     start_time = time.time()
     threads = []
 
-    for i in range(1, 10):
-        thread = MyThreadClass(f"Thread#{i} ", randint(1, 10), 'concurrent')
+    for i in range(1, 11):
+        thread = MyThreadClass(f"Thread#{i}", 'delay')
         threads.append(thread)
 
-    for thread in threads:
-        thread.start()
+    for i in range(0, len(threads), 2):
+        threads[i].start()
+        if i + 1 < len(threads):
+            threads[i + 1].start()
 
-    for thread in threads:
-        thread.join()
+        threads[i].join()
+        if i + 1 < len(threads):
+            threads[i + 1].join()
 
+    print("Delay Scenario End")
     
-    print("Concurrent End")
-    # Execution Time
-    print(f"--- Concurrent Scenario: {time.time() - start_time} seconds ---\n")
+    print(f"--- Delay Scenario: {time.time() - start_time} seconds ---\n")
 
 if __name__ == "__main__":
-    run_concurrent()
+    run_delay_scenario()
