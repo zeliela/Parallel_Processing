@@ -7,6 +7,67 @@
 
 ## یک نمونه از FastAPI و Jinja2Templates ایجاد کرده‌ام:
 ![image](https://github.com/user-attachments/assets/7587dabb-9703-4ae6-ab9d-e4b0e1a7b66d)
+## تنظیم مسیر پایه
+برای تنظیم مسیر پایه به منظور دسترسی به اسکریپت‌ها، از دستور زیر استفاده کرده‌ام:
+![image](https://github.com/user-attachments/assets/147d2c92-3510-461e-9054-aa32c3c40391)
+## مدیریت CORS
+در این پروژه از CORS برای اجازه دسترسی به APIها از همه مبداها استفاده کرده‌ام:
+![image](https://github.com/user-attachments/assets/621a2067-4e01-434f-b2ff-ccd5d9ea9512)
+## مدیریت خطاها
+یک مدیریت خطای عمومی برای تمام APIها تعریف کرده‌ام که جزئیات خطا را به صورت JSON برمی‌گرداند:
+![image](https://github.com/user-attachments/assets/a7cd3577-ffbc-4daf-ae99-0e71b208b2de)
+## APIهای HTML
+این بخش از APIها برای نمایش صفحات HTML استفاده می‌شود:
+
+صفحه اصلی: نمایش پوشه‌ها و سناریوهای موجود.
+![image](https://github.com/user-attachments/assets/7c7bed18-bfcd-4909-8200-d3e210229998)
+
+## اجرای سناریو: اجرای اسکریپت پایتون و نمایش خروجی.
+![image](https://github.com/user-attachments/assets/a6683b14-bdfd-4e99-93c0-649a547289a1)
+
+## نمایش کد: نمایش کد اسکریپت پایتون.
+![image](https://github.com/user-attachments/assets/30a10ed8-ef3c-4182-a975-7036704a9d5f)
+## صفحات HTML
+## index.html
+این صفحه، فهرست پوشه‌ها و سناریوها را نمایش می‌دهد. من می‌توانم یک پوشه و سناریو را انتخاب کرده و آن را اجرا نمایم.
+
+## result.html
+این صفحه، خروجی اجرای اسکریپت پایتون را نمایش می‌دهد.
+
+## code.html
+این صفحه، کد اسکریپت پایتون انتخاب شده را نمایش می‌دهد.
+
+## 2.
+##  Dockerize کردن پروژه
+فایل Dockerfile برای پروژه:
+![image](https://github.com/user-attachments/assets/f1b48c55-daf7-4c11-8406-f2725ec40f03)
+
+فایل requirements.txt:
+
+![image](https://github.com/user-attachments/assets/5e12f1bb-305a-4d71-8d13-b36938ba73ae)
+
+## 3.
+##  Push کردن فایل‌های Dockerize شده به GitHub
+از دستورات زیر را برای push کردن فایل‌ها به GitHub استفاده میکنیم:
+
+git init
+git remote add origin https://https://https://github.com/zeliela/Parallel_Processing
+git add .
+git commit -m "Initial commit"
+git push -u origin master
+
+
+## 4.
+## codespase
+##  ایجاد Codespace
+وارد صفحه‌ی پروژه خود در GitHub میشویم.
+روی دکمه‌ی "Code" کلیک کردم و از منوی باز شده، "Open with Codespaces" را انتخاب کرده.
+یک Codespace جدید ایجاد کرده تا محیط توسعه‌ای مبتنی بر وب را برای پروژه خود راه‌اندازی کنیم.
+در ترمینال این کامند ها را اجرا میکنیم:
+## docker build -t parallel-processing-project .
+## docker run -p 8000:8000 parallel_processing
+پس از اجرا یک لینک برای اجرای پروژه به ما میدهد.
+
 
 
 
